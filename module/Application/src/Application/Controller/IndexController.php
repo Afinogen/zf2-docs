@@ -9,6 +9,7 @@
 
 namespace Application\Controller;
 
+use Zend\Authentication\AuthenticationService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -16,6 +17,9 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        /** @var AuthenticationService $auth */
+//        $auth = $this->getServiceLocator()->get('zfcuser_auth_service');
+//        var_dump($auth->hasIdentity());
         return new ViewModel();
     }
 }
