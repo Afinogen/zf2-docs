@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f042bbd19fb50826d1442050bc160a67",
-    "content-hash": "386575b2cfe764d72cdce1327ed98881",
+    "hash": "bba0a6b290d6af91f2d9549489fbedde",
+    "content-hash": "4a64b8aed2b471af923fbc85355016ec",
     "packages": [
         {
             "name": "bjyoungblood/bjy-authorize",
@@ -4321,20 +4321,20 @@
         },
         {
             "name": "zf-commons/zfc-user",
-            "version": "1.4.2",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZF-Commons/ZfcUser.git",
-                "reference": "d8f83a33ee61516feb059f86ea2eb2c8a23c88d5"
+                "reference": "d1a6b3ffc1f7c55ab89fa25906040557f75feea1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/d8f83a33ee61516feb059f86ea2eb2c8a23c88d5",
-                "reference": "d8f83a33ee61516feb059f86ea2eb2c8a23c88d5",
+                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/d1a6b3ffc1f7c55ab89fa25906040557f75feea1",
+                "reference": "d1a6b3ffc1f7c55ab89fa25906040557f75feea1",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3|~7.0",
+                "php": ">=5.3.3",
                 "zendframework/zend-authentication": "~2.1",
                 "zendframework/zend-crypt": "~2.1",
                 "zendframework/zend-form": "~2.1",
@@ -4394,7 +4394,7 @@
             "keywords": [
                 "zf2"
             ],
-            "time": "2015-12-21 21:09:54"
+            "time": "2014-06-08 20:43:16"
         }
     ],
     "packages-dev": [],

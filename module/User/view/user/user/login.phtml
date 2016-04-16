@@ -1,32 +1,39 @@
-<h1><?php echo $this->translate('Sign In'); ?></h1>
-
 <?php
-$form = $this->loginForm;
-$form->prepare();
-$form->setAttribute('action', $this->url('zfcuser/login'));
-$form->setAttribute('method', 'post');
+/** @var Zend\View\Renderer\PhpRenderer $this */
 ?>
+<h1>Авторизация</h1>
 
-<?php echo $this->form()->openTag($form) ?>
+<div class="row">
+    <?php
+    $form = $this->loginForm;
+    $form->prepare();
+    $form->setAttribute('action', $this->url('zfcuser/login'));
+    $form->setAttribute('method', 'post');
+    ?>
 
-    <dl class="zend_form">
+    <?php echo $this->form()->openTag($form) ?>
+    <div class="form-group">
         <?php echo $this->formElementErrors($form->get('identity')) ?>
+        <?php echo $this->formLabel($form->get('identity')) ?>
+        <?php echo $this->formInput($form->get('identity')) ?>
+    </div>
+    <div class="form-group">
+        <?php echo $this->formLabel($form->get('credential')) ?>
+        <?php echo $this->formInput($form->get('credential')) ?>
+    </div>
+    <?php if ($this->redirect): ?>
+        <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>"/>
+    <?php endif ?>
 
-        <dt><?php echo $this->formLabel($form->get('identity')) ?></dt>
-        <dd><?php echo $this->formInput($form->get('identity')) ?></dd>
+    <?php echo $this->formButton($form->get('submit')) ?>
 
-        <dt><?php echo $this->formLabel($form->get('credential')) ?></dt>
-        <dd><?php echo $this->formInput($form->get('credential')) ?></dd>
 
-        <?php if ($this->redirect): ?>
-            <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
-        <?php endif ?>
+    <?php echo $this->form()->closeTag() ?>
+</div>
 
-        <dd><?php echo $this->formButton($form->get('submit')) ?></dd>
-    </dl>
-
-<?php echo $this->form()->closeTag() ?>
-
-<?php if ($this->enableRegistration) : ?>
-<?php echo $this->translate('Not registered?'); ?> <a href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
-<?php endif; ?>
+<?php if ($this->enableRegistration) { ?>
+    <div class="row">
+        Не зарегистрированы? <a
+            href="<?php echo $this->url('zfcuser/register').($this->redirect ? '?redirect='.$this->redirect : '') ?>">Регистрация!</a>
+    </div>
+<?php } ?>

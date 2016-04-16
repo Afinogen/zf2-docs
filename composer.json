@@ -12,6 +12,6 @@
         "zendframework/zendframework": "~2.5",
         "zendframework/zend-mvc": "2.6.3",
         "bjyoungblood/bjy-authorize": "1.4.*",
-        "zf-commons/zfc-user": "1.4.2"
+        "zf-commons/zfc-user": "0.2.0"
     }
 }

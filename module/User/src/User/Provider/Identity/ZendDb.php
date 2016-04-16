@@ -14,7 +14,7 @@ class ZendDb extends ZfcUserZendDb
     /**
      * @var string
      */
-    protected $tableName = 'user_role_linker';
+    protected $tableName = 'user_has_role';
 
     /**
      * @var string

@@ -12,7 +12,7 @@ $settings = array(
      * Please specify the DI alias for the configured Zend\Db\Adapter\Adapter
      * instance that ZfcUser should use.
      */
-    //'zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
+    'zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
 
     /**
      * User Model Entity Class
@@ -90,7 +90,7 @@ $settings = array(
      *
      * Accepted values: boolean true or false
      */
-    //'login_after_registration' => true,
+    'login_after_registration' => true,
 
     /**
      * Registration Form Captcha
@@ -142,7 +142,7 @@ $settings = array(
      * Accepted values: A valid route name within your application
      * 
      */
-    //'login_redirect_route' => 'zfcuser',
+    'login_redirect_route' => 'zfcuser',
     
     /**
      * Logout Redirect Route
@@ -152,7 +152,7 @@ $settings = array(
      * Default value: 'zfcuser/login'
      * Accepted values: A valid route name within your application
      */
-    'logout_redirect_route' => 'zfcuser/login',
+//    'logout_redirect_route' => 'zfcuser/login',
 
     /**
      * Password Security
