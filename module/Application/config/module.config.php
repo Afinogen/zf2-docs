@@ -13,7 +13,7 @@ return [
     'router' => [
         'routes' => [
             'home' => [
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'segment',
                 'options' => [
                     'route' => '/',
                     'defaults' => [
@@ -22,6 +22,16 @@ return [
                     ],
                 ],
             ],
+            'create-doc' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/create-doc',
+                    'defaults' => [
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'addDoc',
+                    ],
+                ]
+            ]
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them

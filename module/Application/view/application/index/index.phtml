@@ -1,19 +1,33 @@
+<?php
+/** @var Zend\View\Renderer\PhpRenderer $this */
+?>
 <div class="row">
     <?php
     if (!$this->ZfcUserIdentity()) {
-    ?>
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Документооборот</h3>
-            </div>
-            <div class="panel-body">
-                <p>Для того, чтобы воспользоваться сервисом необходимо авторизоваться</p>
-                <p><a class="btn btn-success pull-right" href="<?= $this->url('zfcuser/login') ?>">Авторизация &raquo;</a></p>
+        ?>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Документооборот</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Для того, чтобы воспользоваться сервисом необходимо авторизоваться</p>
+                    <p><a class="btn btn-success pull-right"
+                          href="<?= $this->url('zfcuser/login') ?>">Авторизация &raquo;</a></p>
+                </div>
             </div>
         </div>
-    </div>
-    <?php } else {?>
-        
+    <?php } else { ?>
+        <?= $this->partial('application\index\left-menu'); ?>
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Документооборот</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Выбирите тип документа в меню или создайте документ</p>
+                </div>
+            </div>
+        </div>
     <?php } ?>
 </div>

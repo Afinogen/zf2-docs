@@ -9,17 +9,59 @@
 
 namespace Application\Controller;
 
-use Zend\Authentication\AuthenticationService;
+use Application\Form\Doc;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class IndexController
+ * @package Application\Controller
+ */
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        /** @var AuthenticationService $auth */
-//        $auth = $this->getServiceLocator()->get('zfcuser_auth_service');
-//        var_dump($auth->hasIdentity());
         return new ViewModel();
+    }
+
+    /**
+     * Добавление документа
+     * @return ViewModel
+     */
+    public function addDocAction()
+    {
+        $view = new ViewModel();
+
+        $view->setVariable('form', $this->_form());
+
+        return $view;
+    }
+
+    public function editDocAction()
+    {
+        return new ViewModel();
+    }
+
+    public function viewDocAction()
+    {
+        return new ViewModel();
+    }
+
+    /**
+     * @return Doc
+     */
+    protected function _form()
+    {
+        $form = new Doc('doc', []);
+
+        return $form;
+    }
+
+    /**
+     * @return \Zend\Authentication\AuthenticationService
+     */
+    protected function _getAuthService()
+    {
+        return $this->getServiceLocator()->get('zfcuser_auth_service');
     }
 }

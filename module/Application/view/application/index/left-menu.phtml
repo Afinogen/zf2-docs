@@ -1,0 +1,13 @@
+<?php
+/** @var Zend\View\Renderer\PhpRenderer $this */
+/** @var int $page */
+?>
+<div class="col-md-3">
+    <div class="list-group">
+        <a href="<?= $this->url('create-doc') ?>" class="list-group-item <?= $page == 1 ? 'active' : '' ?>">Создать документ</a></li>
+        <li class="list-group-item">Документы внутрение</li>
+        <li class="list-group-item">Документы входящие</li>
+        <li class="list-group-item">Документы исходящие</li>
+        <li class="list-group-item">Поиск по документам</li>
+    </div>
+</div>

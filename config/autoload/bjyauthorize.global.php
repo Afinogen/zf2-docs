@@ -1,7 +1,7 @@
 <?php
 
-return array(
-    'bjyauthorize' => array(
+return [
+    'bjyauthorize' => [
         'unauthorized_strategy' => 'BjyAuthorize\View\RedirectionStrategy',
 
         // set the 'guest' role as default (must be defined in a role provider)
@@ -20,26 +20,26 @@ return array(
          * to specify roles in a config file and one to load roles using a
          * Zend\Db adapter.
          */
-        'role_providers' => array(
+        'role_providers' => [
 
             // this will load roles from the user_role table in a database
             // format: user_role(role_id(varchar), parent(varchar))
-            'User\Provider\Role\ZendDb' => array(
-                'table'             => 'user_role',
+            'User\Provider\Role\ZendDb' => [
+                'table' => 'user_role',
                 'identifier_field' => 'user_role_id',
-                'role_id_field'     => 'name',
+                'role_id_field' => 'name',
                 'parent_role_field' => 'parent_id',
-            ),
-        ),
+            ],
+        ],
 
         // resource providers provide a list of resources that will be tracked
         // in the ACL. like roles, they can be hierarchical
-        'resource_providers' => array(
-            'BjyAuthorize\Provider\Resource\Config' => array(
-                'admin' => array(),
+        'resource_providers' => [
+            'BjyAuthorize\Provider\Resource\Config' => [
+                'admin' => [],
 //                'pants' => array(),
-            ),
-        ),
+            ],
+        ],
 
         /* rules can be specified here with the format:
          * array(roles (array), resource, [privilege (array|string), assertion])
@@ -47,26 +47,26 @@ return array(
          * Zend\Acl\Assertion\AssertionInterface.
          * *if you use assertions, define them using the service manager!*
          */
-        'rule_providers' => array(
-            'BjyAuthorize\Provider\Rule\Config' => array(
-                'allow' => array(
+        'rule_providers' => [
+            'BjyAuthorize\Provider\Rule\Config' => [
+                'allow' => [
                     // allow guests and users (and admins, through inheritance)
                     // the "wear" privilege on the resource "pants"
 //                    array(array('guest', 'user'), 'pants', 'wear'),
-                    array(array('admin'), 'admin'),
-                ),
+                    [['admin'], 'admin'],
+                ],
 
                 // Don't mix allow/deny rules if you are using role inheritance.
                 // There are some weird bugs.
-                'deny' => array(
+                'deny' => [
                     // ...
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
 
         /* Currently, only controller and route guards exist
          */
-        'guards' => array(
+        'guards' => [
             /* If this guard is specified here (i.e. it is enabled), it will block
              * access to all controllers and actions unless they are specified here.
              * You may omit the 'action' index to allow access to the entire controller
@@ -81,17 +81,18 @@ return array(
             /* If this guard is specified here (i.e. it is enabled), it will block
              * access to all routes unless they are specified here.
              */
-            'BjyAuthorize\Guard\Route' => array(
-                array('route' => 'zfcuser', 				'roles' => array('user')),
-                array('route' => 'zfcuser/logout', 			'roles' => array('user')),
-                array('route' => 'zfcuser/login', 			'roles' => array('guest')),
-                array('route' => 'zfcuser/register', 		'roles' => array('guest')),
-                array('route' => 'zfcuser/changepassword', 	'roles' => array('user')),
-                array('route' => 'zfcuser/changeemail', 	'roles' => array('user')),
+            'BjyAuthorize\Guard\Route' => [
+                ['route' => 'zfcuser', 'roles' => ['user']],
+                ['route' => 'zfcuser/logout', 'roles' => ['user']],
+                ['route' => 'zfcuser/login', 'roles' => ['guest']],
+                ['route' => 'zfcuser/register', 'roles' => ['guest']],
+                ['route' => 'zfcuser/changepassword', 'roles' => ['user']],
+                ['route' => 'zfcuser/changeemail', 'roles' => ['user']],
                 // Below is the default index action used by the [ZendSkeletonApplication](https://github.com/zendframework/ZendSkeletonApplication)
-                array('route' => 'home', 	'roles' => array('guest', 'user')),
-            ),
-        ),
-    ),
+                ['route' => 'home', 'roles' => ['guest', 'user']],
+                ['route' => 'create-doc', 'roles' => ['user']],
+            ],
+        ],
+    ],
 
-);
+];

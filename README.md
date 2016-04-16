@@ -1,55 +1,37 @@
-ZendSkeletonApplication
-=======================
+Документооборот
+===============
 
-Introduction
-------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
-
-Installation using Composer
----------------------------
-
-The easiest way to create a new ZF2 project is to use [Composer](https://getcomposer.org/). If you don't have it already installed, then please install as per the [documentation](https://getcomposer.org/doc/00-intro.md).
+Задание
+-------
+Программное обеспечение для автоматизации электронного документооборота на предприятии.
+Функции:
+- регистрация документа
+- поиск по документам
+- индексация, классификация по ключевым словам
 
 
-Create your new ZF2 project:
+Установка
+---------
+Установить требуемые библиотеки через composer
+```php
+curl -s https://getcomposer.org/installer | php
+php composer.phar install
+```
+Залить бд из файла data/docs-mysql.sql
 
-    composer create-project -n -sdev zendframework/skeleton-application path/to/install
 
-
-
-### Installation using a tarball with a local Composer
-
-If you don't have composer installed globally then another way to create a new ZF2 project is to download the tarball and install it:
-
-1. Download the [tarball](https://github.com/zendframework/ZendSkeletonApplication/tarball/master), extract it and then install the dependencies with a locally installed Composer:
-
-        cd my/project/dir
-        curl -#L https://github.com/zendframework/ZendSkeletonApplication/tarball/master | tar xz --strip-components=1
-    
-
-2. Download composer into your project directory and install the dependencies:
-
-        curl -s https://getcomposer.org/installer | php
-        php composer.phar install
-
-If you don't have access to curl, then install Composer into your project as per the [documentation](https://getcomposer.org/doc/00-intro.md).
-
-Web server setup
-----------------
+Настройка веб-сервера
+---------------------
 
 ### PHP CLI server
 
-The simplest way to get started if you are using PHP 5.4 or above is to start the internal PHP cli-server in the root
-directory:
+При версии php 5.4 и выше можно запустить php-сервер из корневой директории:
 
     php -S 0.0.0.0:8080 -t public/ public/index.php
 
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
+После запуска сайт будет доступен по адресу localhost:8080.
 
-**Note:** The built-in CLI server is *for development only*.
+**Note:** Только для разработки.
 
 ### Vagrant server
 
