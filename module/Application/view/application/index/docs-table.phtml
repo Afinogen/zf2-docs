@@ -1,0 +1,46 @@
+<?php
+/** @var Zend\View\Renderer\PhpRenderer $this */
+/** @var \Application\Entity\Doc[] $docs */
+
+if ($this->docs) {
+    ?>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>№</th>
+            <th>Наименование</th>
+            <th>Дата создания</th>
+            <th>Автор</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach($docs as $doc) {
+            ?>
+            <tr>
+                <td><?= $doc->getRegisterNumber() ?: $doc->getId() ?></td>
+                <td><a href="<?= $this->url('docs', ['action' => 'edit-doc', 'id' => $doc->getId()]) ?>"><?= $doc->getTitle() ?></a></td>
+                <td><?= $doc->getDateCreateFormatted() ?></td>
+                <td><?= $doc->getAuthor()->getDisplayName() ?></td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+    <?php
+} elseif (!$this->notMessage) {
+    ?>
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Нет документов</h3>
+            </div>
+            <div class="panel-body">
+                <p>Нет документов в данной категории, вы можете <a
+                        href="<?= $this->url('docs', ['action' => 'addDoc']) ?>">создать</a> новый документ</p>
+            </div>
+        </div>
+    </div>
+    <?php
+}

@@ -1,11 +1,20 @@
 <?php
 /** @var Zend\View\Renderer\PhpRenderer $this */
-
+/** @var \Application\Entity\Doc $doc */
 ?>
 <div class="row">
     <?= $this->partial('application\index\left-menu', ['page' => 1]); ?>
     <div class="col-md-9">
         <h1>Редактирование документа</h1>
+        <p>Дата создания документа: <?= $doc->getDateCreateFormatted() ?></p>
+        <p>Подготовил: <?= $doc->getAuthor()->getDisplayName() ?></p>
+        <?php
+        if ($doc->getRegisterNumber()) {
+            ?>
+            <p>Регистрационный номер <?= $doc->getRegisterNumber() ?> от <?= $doc->getDateRegisterFormatted() ?></p>
+        <?php
+        }
+        ?>
         <?= $this->partial('application\index\form') ?>
     </div>
 </div>

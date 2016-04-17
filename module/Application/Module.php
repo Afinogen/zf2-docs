@@ -45,7 +45,8 @@ class Module
     {
         return [
             'invokables' => [
-                'Application\Mapper\Doc' => 'Application\Mapper\Doc'
+                'Application\Mapper\Doc' => 'Application\Mapper\Doc',
+                'Application\Mapper\File' => 'Application\Mapper\File'
             ],
         ];
     }

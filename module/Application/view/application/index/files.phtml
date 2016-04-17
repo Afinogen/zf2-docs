@@ -1,0 +1,12 @@
+<?php
+/** @var Zend\View\Renderer\PhpRenderer $this */
+/** @var \Application\Entity\File[] $files */
+
+if ($this->files) {
+    foreach ($files as $file) {
+        ?>
+        <a href="/files/<?= $file->getFilename() ?>"><?= $file->getFilename() ?></a> [<a
+            href="<?= $this->url('docs', ['action' => 'delete-file', 'id' => $file->getId()]) ?>">x</a>] <br>
+        <?php
+    }
+}

@@ -82,7 +82,7 @@ class AbstractMapper extends AbstractDbMapper implements ServiceLocatorAwareInte
             $select->where($_where);
         }
 
-        return $this->hydrate($this->select($select));
+        return $this->resultToArray($this->hydrate($this->select($select)));
     }
 
     /**
@@ -94,9 +94,32 @@ class AbstractMapper extends AbstractDbMapper implements ServiceLocatorAwareInte
     {
         $items = new HydratingResultSet($this->getHydrator(), $this->getEntityPrototype());
 
-        $results = is_array($_results) ? $_results : $_results->toArray();
+        if (!is_array($_results)) {
+            $results = method_exists($_results, 'toArray') ? $_results->toArray() : $this->_getArray($_results->getArrayCopy());
+        } else {
+            $results = $_results;
+        }
 
         return $items->initialize($results);
+    }
+
+    /**
+     * Take an ArrayObject and turn it into an associative array
+     *
+     * @param \ArrayObject $obj
+     *
+     * @return array
+     */
+    protected function _getArray($obj)
+    {
+        $array = []; // noisy $array does not exist
+        $arrObj = is_object($obj) ? get_object_vars($obj) : $obj;
+        foreach ($arrObj as $key => $val) {
+            $val = (is_array($val) || is_object($val)) ? $this->_getArray($val) : $val;
+            $array[$key] = $val;
+        }
+
+        return $array;
     }
 
     /**
@@ -370,6 +393,50 @@ class AbstractMapper extends AbstractDbMapper implements ServiceLocatorAwareInte
      */
     public function findById($_id)
     {
-        return $this->hydrate($this->select($this->getWhere($_id)))->current();
+        $select = $this->getSql()->select($this->getTableName());
+        $select->where($this->getWhere($_id));
+
+        return $this->hydrate($this->select($select))->current();
+    }
+
+    public function resultToArray($_res)
+    {
+        $array = [];
+        foreach ($_res as $val) {
+            $array[$val->getId()] = $val;
+        }
+
+        return $array;
+    }
+
+    /**
+     * @param object $_entity
+     *
+     * @return int
+     */
+    public function forceDeleteEntity($_entity)
+    {
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['entity' => $_entity]);
+
+        return $this->delete($this->getWhere($_entity));
+    }
+
+    /**
+     * @param object $_entity
+     *
+     * @return int|null
+     */
+    public function deleteEntity($_entity)
+    {
+        $result = null;
+
+        if (method_exists($_entity, 'isDeleted')) {
+            $_entity->isDeleted(true);
+            $result = $this->saveEntity($_entity);
+        } else {
+            $result = $this->forceDeleteEntity($_entity);
+        }
+
+        return $result;
     }
 }

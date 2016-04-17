@@ -7,7 +7,7 @@ $form->prepare();
 
 <?= $this->form()->openTag($form) ?>
 <?php
-foreach($form as $element) {
+foreach ($form as $element) {
     if ($element instanceof Zend\Form\Element\Checkbox) {
         echo '<div class="checkbox">';
     }
@@ -21,4 +21,22 @@ foreach($form as $element) {
     }
 }
 ?>
+<?= $this->partial('application\index\files') ?>
+<br>
+<div class="form-group">
+    <button type="submit" name="save" class="btn btn-default">
+        Сохранить
+    </button>
+    <?php
+    if (!$doc->getRegisterNumber()) {
+    ?>
+    <input type="submit" name="register" class="btn btn-success" value="Регистрация">
+    <?php } ?>
+</div>
+
 <?= $this->form()->closeTag() ?>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#keywords").tagit();
+    });
+</script>

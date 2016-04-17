@@ -4,10 +4,15 @@
 ?>
 <div class="col-md-3">
     <div class="list-group">
-        <a href="<?= $this->url('docs', ['action' => 'add-doc']) ?>" class="list-group-item <?= $page == 1 ? 'active' : '' ?>">Создать документ</a></li>
-        <li class="list-group-item">Документы внутрение</li>
-        <li class="list-group-item">Документы входящие</li>
-        <li class="list-group-item">Документы исходящие</li>
-        <li class="list-group-item">Поиск по документам</li>
+        <a href="<?= $this->url('docs', ['action' => 'add-doc']) ?>"
+           class="list-group-item <?= $page == 4 ? 'active' : '' ?>">Создать документ</a>
+        <?php
+        foreach(\Application\Entity\Doc::getDocTypeNames() as $key => $val) {
+        ?>
+        <a href="<?= $this->url('docs', ['action' => 'view-docs', 'type' => $key]) ?>"
+           class="list-group-item <?= $page == $key ? 'active' : '' ?>"><?= $val ?></a>
+        <?php } ?>
+        <a href="<?= $this->url('docs', ['action' => 'search-docs']) ?>"
+           class="list-group-item <?= $page == 5 ? 'active' : '' ?>">Поиск по документам</a>
     </div>
 </div>

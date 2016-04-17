@@ -25,9 +25,10 @@ return [
             'docs' => [
                 'type' => 'segment',
                 'options' => [
-                    'route' => '/docs[/:action][/page:page][/:id][/]',
+                    'route' => '/docs[/:action][/type:type][/page:page][/:id][/]',
                     'constraints' => [
                         'action' => '[a-z\-]+',
+                        'type' => '[0-9]+',
                         'page' => '[0-9]+',
                         'id' => '[0-9]+'
                     ],

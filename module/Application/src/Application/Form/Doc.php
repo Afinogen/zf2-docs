@@ -3,6 +3,7 @@
 
 namespace Application\Form;
 
+use Zend\InputFilter\FileInput;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\Form\Element;
@@ -10,6 +11,7 @@ use Zend\Form\Form;
 use Zend\Validator\Digits;
 use Zend\Validator\NotEmpty;
 use Zend\Validator\StringLength;
+
 
 /**
  * Class Doc
@@ -63,6 +65,12 @@ class Doc extends Form
         $ele->setLabel('Срок исполнения');
         $this->add($ele);
 
+        $ele = new Element\Text('keywords');
+        $ele->setAttribute('class', 'form-control');
+        $ele->setAttribute('id', 'keywords');
+        $ele->setLabel('Ключевые слова');
+        $this->add($ele);
+
         $ele = new Element\Checkbox('is_agreed');
         $ele->setLabel('Согласован');
         $this->add($ele);
@@ -78,14 +86,22 @@ class Doc extends Form
         $ele = new Element\File('file');
         $ele->setLabel('Файлы');
         $ele->setAttribute('id', 'doc-file');
+        $ele->setAttribute('multiple', true);
         $this->add($ele);
 
-        $ele = new Element\Button('save');
-        $ele->setValue('Сохранить');
-        $ele->setLabel('Сохранить');
-        $ele->setAttribute('class', 'btn btn-default');
-        $ele->setAttribute('type', 'submit');
-        $this->add($ele);
+//        $ele = new Element\Button('save');
+//        $ele->setValue('Сохранить');
+//        $ele->setLabel('Сохранить');
+//        $ele->setAttribute('class', 'btn btn-default');
+//        $ele->setAttribute('type', 'submit');
+//        $this->add($ele);
+//
+//        $ele = new Element\Button('register');
+//        $ele->setValue('Регистрация');
+//        $ele->setLabel('Регистрация');
+//        $ele->setAttribute('class', 'btn btn-success');
+//        $ele->setAttribute('type', 'submit');
+//        $this->add($ele);
     }
 
     /**
@@ -236,6 +252,36 @@ class Doc extends Form
                     ]
                 )
             );
+
+            $this->_inputFilter->add(
+                $factory->createInput(
+                    [
+                        'name' => 'keywords',
+                        'required' => false
+                    ]
+                )
+            );
+
+            // File Input
+            $fileInput = new FileInput('file');
+            $fileInput->setRequired(false);
+
+            // You only need to define validators and filters
+            // as if only one file was being uploaded. All files
+            // will be run through the same validators and filters
+            // automatically.
+            $fileInput->getValidatorChain()
+                ->attachByName('filesize', ['max' => 2048000])
+                ->attachByName('filemimetype', ['mimeType' => 'image/png,image/x-png,image/jpg,image/jpeg, image/x-ms-bmp']);
+
+            $fileInput->getFilterChain()->attachByName(
+                'filerenameupload',
+                [
+                    'target' => './data/tmpuploads/',
+                    'randomize' => true,
+                ]
+            );
+            $this->_inputFilter->add($fileInput);
         }
 
         return $this->_inputFilter;

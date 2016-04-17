@@ -2,6 +2,7 @@
 
 
 namespace Application\Entity;
+use User\Entity\User;
 
 /**
  * Class Doc
@@ -22,13 +23,27 @@ class Doc
     protected $_type = 1;
 
     /**
-     * Автор документа
+     * ID автора документа
      * @var int
      */
     protected $_authorId;
 
+    /**
+     * Автор документа
+     * @var User
+     */
+    protected $_author;
+
+    /**
+     * Дата создания
+     * @var string
+     */
     protected $_dateCreate;
 
+    /**
+     * Дата регистрации
+     * @var string
+     */
     protected $_dateRegister;
 
     /**
@@ -84,6 +99,12 @@ class Doc
      * @var string
      */
     protected $_periodExecution;
+
+    /**
+     * Ключевые слова
+     * @var string
+     */
+    protected $_keywords;
 
     /**
      * @return int
@@ -271,5 +292,85 @@ class Doc
     public function setPeriodExecution($periodExecution)
     {
         $this->_periodExecution = $periodExecution;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateCreate()
+    {
+        return $this->_dateCreate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateCreateFormatted()
+    {
+        return date('d.m.Y H:i:s', strtotime($this->_dateCreate));
+    }
+
+    /**
+     * @param string $dateCreate
+     */
+    public function setDateCreate($dateCreate)
+    {
+        $this->_dateCreate = $dateCreate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateRegister()
+    {
+        return $this->_dateRegister;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateRegisterFormatted()
+    {
+        return date('d.m.Y H:i:s', strtotime($this->_dateRegister));
+    }
+
+    /**
+     * @param string $dateRegister
+     */
+    public function setDateRegister($dateRegister)
+    {
+        $this->_dateRegister = $dateRegister;
+    }
+
+    /**
+     * @return User
+     */
+    public function getAuthor()
+    {
+        return $this->_author;
+    }
+
+    /**
+     * @param User $author
+     */
+    public function setAuthor($author)
+    {
+        $this->_author = $author;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeywords()
+    {
+        return $this->_keywords;
+    }
+
+    /**
+     * @param string $keywords
+     */
+    public function setKeywords($keywords)
+    {
+        $this->_keywords = $keywords;
     }
 }
