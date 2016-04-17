@@ -22,13 +22,18 @@ return [
                     ],
                 ],
             ],
-            'create-doc' => [
+            'docs' => [
                 'type' => 'segment',
                 'options' => [
-                    'route' => '/create-doc',
+                    'route' => '/docs[/:action][/page:page][/:id][/]',
+                    'constraints' => [
+                        'action' => '[a-z\-]+',
+                        'page' => '[0-9]+',
+                        'id' => '[0-9]+'
+                    ],
                     'defaults' => [
                         'controller' => 'Application\Controller\Index',
-                        'action' => 'addDoc',
+                        'action' => 'index',
                     ],
                 ]
             ]

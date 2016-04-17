@@ -90,7 +90,7 @@ return [
                 ['route' => 'zfcuser/changeemail', 'roles' => ['user']],
                 // Below is the default index action used by the [ZendSkeletonApplication](https://github.com/zendframework/ZendSkeletonApplication)
                 ['route' => 'home', 'roles' => ['guest', 'user']],
-                ['route' => 'create-doc', 'roles' => ['user']],
+                ['route' => 'docs', 'roles' => ['user']],
             ],
         ],
     ],

@@ -1,0 +1,24 @@
+<?php
+/** @var Zend\View\Renderer\PhpRenderer $this */
+/** @var \Application\Form\Doc $form */
+
+$form->prepare();
+?>
+
+<?= $this->form()->openTag($form) ?>
+<?php
+foreach($form as $element) {
+    if ($element instanceof Zend\Form\Element\Checkbox) {
+        echo '<div class="checkbox">';
+    }
+    if (!$element instanceof Zend\Form\Element\Button) {
+        echo $this->formLabel($element);
+    }
+
+    echo $this->formElement($element).$this->formElementErrors($element);
+    if ($element instanceof Zend\Form\Element\Checkbox) {
+        echo '</div>';
+    }
+}
+?>
+<?= $this->form()->closeTag() ?>

@@ -4,7 +4,7 @@
 ?>
 <div class="col-md-3">
     <div class="list-group">
-        <a href="<?= $this->url('create-doc') ?>" class="list-group-item <?= $page == 1 ? 'active' : '' ?>">Создать документ</a></li>
+        <a href="<?= $this->url('docs', ['action' => 'add-doc']) ?>" class="list-group-item <?= $page == 1 ? 'active' : '' ?>">Создать документ</a></li>
         <li class="list-group-item">Документы внутрение</li>
         <li class="list-group-item">Документы входящие</li>
         <li class="list-group-item">Документы исходящие</li>

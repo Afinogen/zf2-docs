@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Afinogen
- * Date: 16.04.2016
- * Time: 14:45
- */
 
 namespace Application\Mapper;
 
@@ -299,5 +293,83 @@ class AbstractMapper extends AbstractDbMapper implements ServiceLocatorAwareInte
     public function computePri()
     {
         return [$this->getTableName().'_id'];
+    }
+
+    /**
+     * @param object $_entity
+     * @param null|array $_rows
+     *
+     * @return int
+     */
+    public function updateEntity($_entity, $_rows = null)
+    {
+        $set = $this->getHydrator()->extract($_entity);
+
+        if (!empty($_rows)) {
+            $set = array_intersect_key($set, array_flip($_rows));
+        }
+
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['entity' => $_entity]);
+
+        return $this->update($set, $this->getWhere($_entity));
+    }
+
+    /**
+     * @param object $_entity
+     *
+     * @return int
+     */
+    public function insertEntity($_entity)
+    {
+        $res = $this->insert($this->getHydrator()->extract($_entity));
+
+        if ($res && count($this->getPri()) == 1 && !$_entity->getId()) {
+            $_entity->setId($res->getGeneratedValue());
+        }
+
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['entity' => $_entity]);
+
+        return $res;
+    }
+
+    /**
+     * @param object $_entity
+     * @param array $_rows
+     *
+     * @return int
+     */
+    public function saveEntity($_entity, $_rows = [])
+    {
+        return $_entity->getId() && $this->findById($_entity->getId()) ? $this->updateEntity($_entity, $_rows) : $this->insertEntity($_entity);
+    }
+
+    /**
+     * @param $_where
+     *
+     * @return array
+     */
+    public function getWhere($_where)
+    {
+        if (is_array($_where) && count($_where) == 0) {
+            return $_where;
+        }
+
+        $where = is_object($_where) ? $_where->getId() : $_where;
+
+        if (!is_array($where)) {
+            $where = [$where];
+        }
+
+        return array_combine($this->getPri(), $where);
+    }
+
+    /**
+     * @param int|int[] $_id
+     *
+     * @return object
+     */
+    public function findById($_id)
+    {
+        return $this->hydrate($this->select($this->getWhere($_id)))->current();
     }
 }

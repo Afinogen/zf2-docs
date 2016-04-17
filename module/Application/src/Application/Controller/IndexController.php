@@ -32,14 +32,28 @@ class IndexController extends AbstractActionController
     {
         $view = new ViewModel();
 
-        $view->setVariable('form', $this->_form());
+        $form = $this->_form();
+        if ($form instanceof  \Zend\Http\PhpEnvironment\Response) {
+            return $form;
+        }
+
+        $view->setVariable('form', $form);
 
         return $view;
     }
 
     public function editDocAction()
     {
-        return new ViewModel();
+        $view = new ViewModel();
+        $form = $this->_form();
+
+        if ($form instanceof  \Zend\Http\PhpEnvironment\Response) {
+            return $form;
+        }
+
+        $view->setVariable('form', $form);
+
+        return $view;
     }
 
     public function viewDocAction()
@@ -54,7 +68,49 @@ class IndexController extends AbstractActionController
     {
         $form = new Doc('doc', []);
 
+        if ($this->getRequest()->isPost()) {
+            $post = $this->getRequest()->getPost();
+            $form->setData($post);
+            if ($form->isValid()) {
+                $entity = new \Application\Entity\Doc();
+                $entity->setType($form->getData()['type']);
+                $entity->setTitle($form->getData()['title']);
+                $entity->setDescription($form->getData()['description']);
+                $entity->setResponsibleId(!empty($form->getData()['responsible_id']) ? $form->getData()['responsible_id'] : null);
+                $entity->setResolution($form->getData()['resolution']);
+                $entity->setPeriodExecution($form->getData()['period_execution']);
+                $entity->isAgreed($form->getData()['is_agreed']);
+                $entity->isApproved($form->getData()['is_approved']);
+                $entity->isExecuted($form->getData()['is_executed']);
+
+                if (!$entity->getId()) {
+                    $entity->setAuthorId($this->_getAuthService()->getIdentity()->getId());
+                }
+
+                if ($this->_getDocMapper()->saveEntity($entity)) {
+                    return $this->redirect()->toRoute('docs', ['action' => 'edit-doc', 'id' => $entity->getId()]);
+                }
+            }
+        }
+
+        $users = $this->_getUserMapper()->fetchAll();
+        $usersOptionValue = [];
+        foreach($users as $user) {
+            $usersOptionValue[$user->getId()] = $user->getDisplayName();
+        }
+
+        $form->get('responsible_id')->setValueOptions($usersOptionValue);
+
         return $form;
+    }
+
+    /**
+     * Id документа
+     * @return int|null
+     */
+    protected function _getDocId()
+    {
+        return $this->params()->fromRoute('id');
     }
 
     /**
@@ -63,5 +119,21 @@ class IndexController extends AbstractActionController
     protected function _getAuthService()
     {
         return $this->getServiceLocator()->get('zfcuser_auth_service');
+    }
+
+    /**
+     * @return \User\Mapper\User
+     */
+    protected function _getUserMapper()
+    {
+        return $this->getServiceLocator()->get('User\Mapper\User');
+    }
+
+    /**
+     * @return \Application\Mapper\Doc
+     */
+    protected function _getDocMapper()
+    {
+        return $this->getServiceLocator()->get('Application\Mapper\Doc');
     }
 }

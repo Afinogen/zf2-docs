@@ -1,15 +1,11 @@
 <?php
 /** @var Zend\View\Renderer\PhpRenderer $this */
-/** @var \Application\Form\Doc $form */
 
-$form->prepare();
 ?>
 <div class="row">
     <?= $this->partial('application\index\left-menu', ['page' => 1]); ?>
     <div class="col-md-9">
         <h1>Создание документа</h1>
-        <?= $this->form()->openTag($form) ?>
-
-        <?= $this->form()->closeTag() ?>
+        <?= $this->partial('application\index\form') ?>
     </div>
 </div>
