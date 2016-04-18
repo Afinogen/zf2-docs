@@ -28,7 +28,7 @@ foreach ($form as $element) {
         Сохранить
     </button>
     <?php
-    if (!$doc->getRegisterNumber()) {
+    if ($this->doc && !$doc->getRegisterNumber()) {
     ?>
     <input type="submit" name="register" class="btn btn-success" value="Регистрация">
     <?php } ?>

@@ -1,0 +1,62 @@
+<?php if ($this->pageCount > 1) { ?>
+    <div>
+        <ul class="pagination">
+            <!-- Previous page link -->
+            <?php if (isset($this->previous)) { ?>
+                <li>
+                    <a href="<?php echo $this->url($this->route, [
+                        'page' => $this->previous,
+                        'action' => $this->action,
+                        'type' => $this->type
+                    ]);
+                    ?>">
+                        &#8592;
+                    </a>
+                </li>
+            <?php } else { ?>
+                <li class="disabled">
+                    <a href="#">&#8592;</a>
+                </li>
+            <?php } ?>
+
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page) { ?>
+                <?php if ($page != $this->current) { ?>
+                    <li>
+                        <a href="<?php echo $this->url($this->route, [
+                            'page' => $page,
+                            'action' => $this->action,
+                            'type' => $this->type
+                        ]);
+                        ?>">
+                            <?php echo $page; ?>
+                        </a>
+                    </li>
+                <?php } else { ?>
+                    <li class="active">
+                        <a href=""><?php echo $page; ?></a>
+                    </li>
+                <?php } ?>
+            <?php } ?>
+
+            <!-- Next page link -->
+            <?php if (isset($this->next)) { ?>
+                <li>
+                    <a href="<?php echo $this->url($this->route, [
+                        'page' => $this->next,
+                        'action' => $this->action,
+                        'type' => $this->type
+                    ]);
+                    ?>">
+                        &#8594;
+                    </a>
+                </li>
+            <?php } else { ?>
+                <li class="disabled">
+                    <a href="#">&#8594;</a>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+<?php }
+

@@ -58,6 +58,7 @@ class IndexController extends AbstractActionController
         $this->_getDocMapper()->setupDocs([$doc]);
         $files = $this->_getFileMapper()->fetchAll(['doc_id' => $doc->getId()]);
 
+        $view->setVariable('type', $doc->getType());
         $view->setVariable('form', $form);
         $view->setVariable('doc', $doc);
         $view->setVariable('files', $files);

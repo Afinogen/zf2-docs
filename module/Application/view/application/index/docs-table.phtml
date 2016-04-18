@@ -15,11 +15,13 @@ if ($this->docs) {
         </thead>
         <tbody>
         <?php
-        foreach($docs as $doc) {
+        foreach ($docs as $doc) {
             ?>
             <tr>
                 <td><?= $doc->getRegisterNumber() ?: $doc->getId() ?></td>
-                <td><a href="<?= $this->url('docs', ['action' => 'edit-doc', 'id' => $doc->getId()]) ?>"><?= $doc->getTitle() ?></a></td>
+                <td>
+                    <a href="<?= $this->url('docs', ['action' => 'edit-doc', 'id' => $doc->getId()]) ?>"><?= $doc->getTitle() ?></a>
+                </td>
                 <td><?= $doc->getDateCreateFormatted() ?></td>
                 <td><?= $doc->getAuthor()->getDisplayName() ?></td>
             </tr>
@@ -37,8 +39,8 @@ if ($this->docs) {
                 <h3 class="panel-title">Нет документов</h3>
             </div>
             <div class="panel-body">
-                <p>Нет документов в данной категории, вы можете <a
-                        href="<?= $this->url('docs', ['action' => 'addDoc']) ?>">создать</a> новый документ</p>
+                <p>Нет документов в данной категории, вы можете
+                    <a href="<?= $this->url('docs', ['action' => 'add-doc']) ?>">создать</a> новый документ</p>
             </div>
         </div>
     </div>
