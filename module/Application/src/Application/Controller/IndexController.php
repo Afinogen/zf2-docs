@@ -112,6 +112,7 @@ class IndexController extends AbstractActionController
             $view->setVariable('paginator', $pagination);
             $view->setVariable('search', $search);
         }
+        $view->setVariable('keywords', $this->_getDocMapper()->getDocKeywords());
 
         return $view;
     }

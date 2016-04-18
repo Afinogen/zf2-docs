@@ -54,6 +54,26 @@ class Doc extends AbstractMapper
     }
 
     /**
+     * Возвращает массив всех доступных ключевых слов
+     * @return array
+     */
+    public function getDocKeywords()
+    {
+        $select = $this->getSql()->select($this->getTableName());
+        $select->columns(['keywords']);
+        $stmt = $this->getSql()->prepareStatementForSqlObject($select)->execute();
+
+        $res = [];
+        foreach ($stmt as $item) {
+            if (!empty($item['keywords'])) {
+                $res = array_merge($res, explode(',', $item['keywords']));
+            }
+        }
+
+        return $res;
+    }
+
+    /**
      * @return \User\Mapper\User
      */
     protected function _getUserMapper()

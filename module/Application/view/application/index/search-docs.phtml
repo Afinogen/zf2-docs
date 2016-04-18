@@ -7,6 +7,13 @@
         <h1>Поиск по документам</h1>
         <form action="">
             <input class="form-control" type="text" name="search" value="<?= $this->search ?>" placeholder="Имя документа или ключевое слово">
+            <details>Доступные ключевые слова: <?php
+                foreach ($this->keywords as $keyword) {
+                    ?>
+                    <a href="<?= $this->url('docs', ['action' => 'search-docs']) ?>?search=<?= $keyword ?>"><span class="label label-info"><?= $keyword ?></span></a>
+                <?php
+                }
+                ?></details>
         </form>
         <?= $this->partial('application/index/docs-table', ['docs' => $this->docs, 'notMessage' => true]) ?>
     </div>
