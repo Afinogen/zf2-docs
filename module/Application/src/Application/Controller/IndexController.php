@@ -99,13 +99,12 @@ class IndexController extends AbstractActionController
     {
         $view = new ViewModel();
 
-        $search = $this->params()->fromQuery('search', null);
+        $search = trim($this->params()->fromQuery('search', null));
 
         if ($search) {
             $pagination = null;
             $where = new Where();
-            $where->like('title', '%'.$search.'%');
-            $where->like('keywords', '%'.$search.'%');
+            $where->like('title', '%'.$search.'%')->or->like('keywords', '%'.$search.'%');
 
             $docs = $this->_getDocMapper()->getDocsPagination($pagination, $where, $this->params()->fromRoute('page', 1));
             $this->_getDocMapper()->setupDocs($docs);

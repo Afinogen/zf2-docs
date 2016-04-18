@@ -3,9 +3,9 @@
 
 ?>
 <div class="row">
-    <?= $this->partial('application\index\left-menu', ['page' => $this->type]); ?>
+    <?= $this->partial('application/index/left-menu', ['page' => $this->type]); ?>
     <div class="col-md-9">
         <h1><?= \Application\Entity\Doc::getDocTypeNames()[$this->type] ?></h1>
-        <?= $this->partial('application\index\docs-table') ?>
+        <?= $this->partial('application/index/docs-table') ?>
     </div>
 </div>

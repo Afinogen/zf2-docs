@@ -2,12 +2,12 @@
 /** @var Zend\View\Renderer\PhpRenderer $this */
 ?>
 <div class="row">
-    <?= $this->partial('application\index\left-menu', ['page' => 5]); ?>
+    <?= $this->partial('application/index/left-menu', ['page' => 5]); ?>
     <div class="col-md-9">
         <h1>Поиск по документам</h1>
         <form action="">
             <input class="form-control" type="text" name="search" value="<?= $this->search ?>" placeholder="Имя документа или ключевое слово">
         </form>
-        <?= $this->partial('application\index\docs-table', ['docs' => $this->docs, 'notMessage' => true]) ?>
+        <?= $this->partial('application/index/docs-table', ['docs' => $this->docs, 'notMessage' => true]) ?>
     </div>
 </div>
