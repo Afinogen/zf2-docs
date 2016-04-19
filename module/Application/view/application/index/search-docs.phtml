@@ -6,12 +6,17 @@
     <div class="col-md-9">
         <h1>Поиск по документам</h1>
         <form action="">
-            <input class="form-control" type="text" name="search" value="<?= $this->search ?>" placeholder="Имя документа или ключевое слово">
-            <details>Доступные ключевые слова: <?php
+            <div class="form-group">
+                <input class="form-control col-xs-10" style="width: 80%" type="text" name="search" value="<?= $this->search ?>"
+                       placeholder="Имя документа или ключевое слово">
+                <input type="submit" name="go" value="Искать" class="btn btn-primary col-xs-2" style="width: 20%">
+            </div>
+            <details style="display: block">Доступные ключевые слова: <?php
                 foreach ($this->keywords as $keyword) {
                     ?>
-                    <a href="<?= $this->url('docs', ['action' => 'search-docs']) ?>?search=<?= $keyword ?>"><span class="label label-info"><?= $keyword ?></span></a>
-                <?php
+                    <a href="<?= $this->url('docs', ['action' => 'search-docs']) ?>?search=<?= $keyword ?>"><span
+                            class="label label-info"><?= $keyword ?></span></a>
+                    <?php
                 }
                 ?></details>
         </form>
