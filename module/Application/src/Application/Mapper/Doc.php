@@ -25,7 +25,7 @@ class Doc extends AbstractMapper
 
         $_pagination = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getDbAdapter()));
 
-        $_pagination->setDefaultItemCountPerPage(2);
+        $_pagination->setDefaultItemCountPerPage(20);
         $_pagination->setCurrentPageNumber($_page);
         $resultSet = $_pagination->getIterator();
 
